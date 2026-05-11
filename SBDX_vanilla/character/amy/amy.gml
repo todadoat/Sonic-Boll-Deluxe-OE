@@ -22,8 +22,7 @@ Amy can use her powerful hammer to#wall jump, and break fragile objects.
 #define skininit
 var looper;
 
-playerskinstr(p2,"oldhammerspin"+string(p2),playerskinstr(p2,name + " old hammer rotation"))
-oldhammerspin=funnytruefalse(playerskindat(p2,"oldhammerspin"+string(p2)))
+oldhammerspin=funnytruefalse(playerskindat(p2,name+" old hammer rotation")) 
 
 //graphic offsets
 loopey=0
