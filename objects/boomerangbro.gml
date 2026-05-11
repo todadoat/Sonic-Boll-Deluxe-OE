@@ -17,6 +17,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !inview() {exit}
 if (trap) {
     x=(x*4+trap.x)/5
     y=(y*4+trap.y)/5

@@ -29,7 +29,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-//if (pitdeath()||!inview()) instance_destroy()
+if (pitdeath()||!inview()) with owner {if pitdeath() || !inview() with other {instance_destroy()}}
 
 if !gox gox=xstart+(-100*owner.xsc)
 if !goy goy=y

@@ -23,7 +23,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-if (pitdeath()) instance_destroy()
+if (pitdeath() || !inview()) instance_destroy()
 #define Collision_player
 /*"/*'/**//* YYD ACTION
 lib_id=1
