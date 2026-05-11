@@ -16,6 +16,7 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+if !inview() {exit}
 if (trap) {
     x=(x*4+trap.x)/5
     y=(y*4+trap.y)/5
@@ -41,8 +42,10 @@ if (trap) {
     }
     hc+=1 if (hc=48) {hc=0
         xsc=esign(x-nearest.x,1)
-        if (gonnathrow) {with (instance_create(x,y-10,fireball)) {xsc=other.xsc hspeed=-xsc owner=other.id}}
-        gonnathrow=rchoose(0,1,1)
+        if (gonnathrow) {with (instance_create(x,y-10,fireball)) {xsc=other.xsc hspeed=-xsc*2 owner=other.id}}
+        limiter=0
+        with fireball {if owner=other.id other.limiter+=1}
+        if limiter<5 gonnathrow=rchoose(0,1)
         if (jumping) sprite="firebrojump"
         else sprite="firebro"
         if (gonnathrow) sprtime=8

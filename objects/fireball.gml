@@ -54,7 +54,7 @@ else if exploding=1
     vspeed=0
 }
 
-if (pitdeath()) instance_destroy()
+if (pitdeath() || !inview()) instance_destroy()
 #define Collision_player
 /*"/*'/**//* YYD ACTION
 lib_id=1
