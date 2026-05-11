@@ -11,8 +11,8 @@ Amy
 [a]: Piko Ball (Air)
 [b]: Hammer Swing / Hammer Twirl (Running / Air)
 [up]+[b]: Rising Swing (Air)
-[down]+[a] / [c]->[a]: Skip / [down]+[b]: Hammer Slam (Air)
-[c]: Slide Kick 
+[down]+[b]: Hammer Slam (Air)
+[c]: Slide Kick / [c]->[a]: Skip 
 #
 Amy can use her powerful hammer to#wall jump, and break fragile objects.
 
