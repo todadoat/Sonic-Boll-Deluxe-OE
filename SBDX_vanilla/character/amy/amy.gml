@@ -217,6 +217,7 @@ if (owner.piko=24) {y=-1000}
 
 if (owner.piko=1 || owner.piko=8 || owner.piko=13 || owner.piko=18 || owner.piko=22) with owner with (fire_projectile(other.x,other.y)) {type="trailheart" depth=owner.depth+1 hspeed=0 vspeed=0}
 
+x+=owner.hsp/2 //weird
 
 coll=instance_place(x,y,collider)
 if (coll) {
