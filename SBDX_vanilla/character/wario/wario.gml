@@ -645,17 +645,18 @@ if !bash && fired>1 && fired<10 && crouch && !pound && size=2 {
 } else if !crouch || !size=2 {fired=0 stopsfx(my_flamesfx)}
 } else {flytimer=60 stopsfx(my_flamesfx)}
 
-
+canmach = (!water && !crouch && !pound && !carry && !bash && !brakingmach)
 
 if (cbut) {
-
 }
 
-if (ckey) {
-if (!jump && !water && !crouch && !carry && !bash && !machrun && !brakingmach) {
-machrun=1
-}
-} else {machrun=0}
+if (ckey && size && size!=5) {
+    if (!jump && canmach)
+        machrun=1
+    else if (!canmach)
+        machrun=0
+} else
+    machrun=0
 
 if (machrun && abs(hsp)>0.5) {
 machtime=min(1,machtime+0.02)
