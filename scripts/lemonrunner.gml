@@ -62,29 +62,77 @@ repeat (8) {
         if (water==16) {water=-16 with (instance_create(offx,0,barrier)) {image_xscale=(other.x-x)/16}}
     }
 
-
+    var m, n;
 
     with (lg.gods[i]) {
         if obj {
-            o=instance_create(offx+x*16+off+off2x,y*16+off+off2y+16,obj)
-            count=lg.objlist[dataid,3]
-            if (count) {j=0 repeat (count) {variable_instance_set(o,lg.objlist[dataid,5+j],data[j]) j+=1}}
+            updatedeities(1)
+
+            m = 0; n = 0;
+            scalex = max(1, scalex); scaley = max(1, scaley)
+            repeat (scalex) {
+                repeat (scaley) {
+                    o=instance_create(offx+x*16+off+off2x+(m*16*_xsc),y*16+off+off2y+(n*16*_ysc)+16,obj)
+                    count=lg.objlist[dataid,3]
+                    if (count) {j=0 repeat (count) {variable_instance_set(o,lg.objlist[dataid,5+j],data[j]) j+=1}}
+                    n += 1;
+                }
+                n = 0;
+                m += 1;
+            }
+
             if (current_time>global.loadtime+64) loadtext()
         }
     }
     with (lg.waters[i]) {
-        instance_create(offx+x*16,y*16+16,waterblock)
+        updatedeities(1)
+
+        m = 0; n = 0;
+        scalex = max(1, scalex); scaley = max(1, scaley)
+        repeat (scalex) {
+            repeat (scaley) {
+                instance_create(offx+x*16+(m*16*_xsc),y*16+(n*16*_ysc)+16,waterblock)
+                n += 1;
+            }
+            n = 0;
+            m += 1;
+        }
+
         if (current_time>global.loadtime+64) loadtext()
     }
     with (lg.semis[i]) {
         if obj {
-            instance_create(offx+x*16,y*16+16,obj)
+            updatedeities(1)
+
+            m = 0; n = 0;
+            scalex = max(1, scalex); scaley = max(1, scaley)
+            repeat (scalex) {
+                repeat (scaley) {
+                    instance_create(offx+x*16+(m*16*_xsc),y*16+(n*16*_ysc)+16,obj)
+                    n += 1;
+                }
+                n = 0;
+                m += 1;
+            }
+
             if (current_time>global.loadtime+64) loadtext()
         }
     }
     with (lg.backs[i]) {
         if obj {
-            instance_create(offx+x*16,y*16+16,obj)
+            updatedeities(1)
+
+            m = 0; n = 0;
+            scalex = max(1, scalex); scaley = max(1, scaley)
+            repeat (scalex) {
+                repeat (scaley) {
+                    instance_create(offx+x*16+(m*16*_xsc),y*16+(n*16*_ysc)+16,obj)
+                    n += 1;
+                }
+                n = 0;
+                m += 1;
+            }
+
             if (current_time>global.loadtime+64) loadtext()
         }
     }

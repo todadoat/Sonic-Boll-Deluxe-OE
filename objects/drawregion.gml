@@ -8,6 +8,7 @@ gridtex1=sprite_get_texture(tex_grid,0)
 gridtex2=sprite_get_texture(tex_grid,1)
 deity=objcontainer
 selected_array[0]=0
+_scaleoutline = noone
 global.lemonjustundone=0;
 
 s=-1
@@ -166,6 +167,7 @@ var i,j;
 
 sels=sels+0.1
 selcol=merge_color($ff0000,$ffffff,0.5+0.5*sin(sels))
+scalecol=merge_color($60d0f0,$a0ffff,0.5*sin(sels))
 current_obj=lemongrab.objlist[hotbar.obj[hotbar.cur],0]
 if (current_obj=waterblock) {
     if current_layermode!=0 {
@@ -539,9 +541,38 @@ if (within(editcursor.x,editcursor.y,mmx+100-mmw/2,mmy+72-mmh/2,mmw,mmh)) {
                 if region>0 repeat (8) {lemongrab.tspawnx+=lemongrab.w[greenhillzone]+25 greenhillzone+=1 if (greenhillzone == region) break;}
                 if (lemongrab.tspawnx!=memx || lemongrab.tspawny!=memy || lemongrab.tspawnr!=memr) event_user(7)
             }
+        } else if (editcursor.tool=10) { //scale tool
+            if (!_scaling) {
+                if current_layermode=0 _scaleoutline = instance_position(curx,cury,watercontainer)
+                if current_layermode=1 _scaleoutline = instance_position(curx,cury,deity)
+                if current_layermode=2 _scaleoutline = instance_position(curx,cury,semicontainer)
+                if current_layermode=3 _scaleoutline = instance_position(curx,cury,backcontainer)
+
+                _scaleoutline = lemon_scaleable(_scaleoutline)
+
+                if (editcursor.leftp && _scaleoutline && (curx == (_scaleoutline.x - 1 + ((_scaleoutline.scalex) * _scaleoutline._xsc)) && cury == (_scaleoutline.y - 1 + ((_scaleoutline.scaley) * _scaleoutline._ysc)))) {
+                    _scaling = 1;
+
+                    unchanged = 0;
+                }
+            }
         }
     }
 }
+
+if (_scaling) {  //Please.
+
+    if (!editcursor.left || editcursor.tool != 10 || !_scaleoutline || !instance_exists(_scaleoutline)) {
+        _scaling = 0;
+        UPDATE_THE_DEITIES = 1;
+        event_user(7)
+    } else {
+        _scaleoutline.scalex = min(max(1, min((curx - (_scaleoutline.x - 1)) div _scaleoutline._xsc, (lemongrab.w[region] - _scaleoutline.x) div _scaleoutline._xsc)),65535)
+        _scaleoutline.scaley = min(max(1, min((cury - (_scaleoutline.y - 1)) div _scaleoutline._ysc, (lemongrab.h[region] - _scaleoutline.y) div _scaleoutline._ysc)),65535)
+    }
+
+}
+
 if (drawing) {
     //drawing objects
     if (!editcursor.left) {drawing=0 UPDATE_THE_DEITIES=1 event_user(7)}
@@ -1154,7 +1185,7 @@ if (isback) {
 }
 
 with (backcontainer) {
-    draw_sprite_ext(spr,frame,x*16,y*16,1,1,0,c_white,draw_get_alpha())
+    draw_sprite_ext(spr,frame,x*16,y*16,scalex,scaley,0,c_white,draw_get_alpha())
 }
 
 if (isback) {
@@ -1169,7 +1200,7 @@ with (semicontainer) {
     if (drawregion.UPDATE_THE_DEITIES && !drawregion.dont_update_eities)
     updatedeities()
 
-    draw_sprite_ext(spr,frame,x*16,y*16,1,1,0,c_white,draw_get_alpha())
+    draw_sprite_ext(spr,frame,x*16,y*16,scalex,scaley,0,c_white,draw_get_alpha())
     update=0
 }
 
@@ -1190,7 +1221,7 @@ with (deity) {
     if (canupdate)
     updatedeities()
 
-    draw_sprite_ext(spr,frame,x*16+off+off2x,y*16+off+off2y,1,1,0,c_white,draw_get_alpha())
+    draw_sprite_ext(spr,frame,x*16+off+off2x,y*16+off+off2y,scalex,scaley,0,c_white,draw_get_alpha())
 
     switch(obj) {
         case (tyler):
@@ -1381,7 +1412,7 @@ draw_set_alpha(1)
 
 //end draw deity
 
-with (watercontainer) draw_sprite_ext(spr_editorwater,0,x*16,y*16,1,1,0,c_white,draw_get_alpha())
+with (watercontainer) draw_sprite_ext(spr_editorwater,0,x*16,y*16,scalex,scaley,0,c_white,draw_get_alpha())
 
 //spawner...
 if (region=lemongrab.spawnr) {
@@ -1475,10 +1506,10 @@ if (!grab && !grabj && !grabf && !hidecur && !positionpicker) if ((editcursor.to
     draw_sprite_ext(lemongrab.objlist[hotbar.obj[hotbar.cur],1],0,curx*16+off,cury*16+off,1,1,0,selcol,0.5)
 }
 if (selecting) rect(selx*16,sely*16,selw*16,selh*16,selcol,0.5)
-if (selecting == 2 && !dragsound) {
+if ((selecting == 2 || scaling) && !dragsound) {
     if !(settings("nolemonsound")) sound("lemonbucketdrag",1)
     dragsound=1
-} else if (selecting != 2) {
+} else if (selecting != 2 && !scaling) {
     if !(settings("nolemonsound")) soundstop("lemonbucketdrag")
     dragsound=0
 }
@@ -1492,6 +1523,12 @@ with (watercontainer) if (selected) rect(x*16-2,y*16-2,20,20,other.selcol,0.5)
 with (deity) if (selected) rect(x*16-2,y*16-2,20,20,other.selcol,0.5)
 with (semicontainer) if (selected) rect(x*16-2,y*16-2,20,20,other.selcol,0.5)
 with (backcontainer) if (selected) rect(x*16-2,y*16-2,20,20,other.selcol,0.5)*/
+
+if (_scaleoutline)
+    with (_scaleoutline) {
+        rect((x * 16) - 2, (y * 16) - 2, ((scalex * 16) * _xsc) + 2, ((scaley * 16) * _ysc) + 2, other.scalecol, 1, 1)
+        draw_sprite(spr_lemonscale, other._scaling, ((x + (scalex * _xsc)) * 16), ((y + (scaley * _ysc)) * 16))
+    }
 
 if (editcursor.tool=1 && editcursor.ctrl && !editcursor.shift) && (copy_layer == current_layermode) if (copyw>0 || copyh>0) rect(curx*16,cury*16,copyw*16,copyh*16,selcol,0.5)
 d3d_transform_set_identity()
