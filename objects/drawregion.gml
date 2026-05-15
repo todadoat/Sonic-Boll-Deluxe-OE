@@ -578,7 +578,7 @@ if (_scaling) {  //Please.
     if (!editcursor.left || editcursor.tool != 10 || !_scaleoutline || !instance_exists(_scaleoutline)) {
         _scaling = 0;
         if (_scaleoutline && instance_exists(_scaleoutline)) with (_scaleoutline) {
-            new = 1;
+            replace_below = 1;
             updatedeities();
         }
         event_user(7)

@@ -528,6 +528,14 @@ if (new) {
     new=0
 }
 
+if (replace_below) {
+    with (object_index) {
+        if (place_meeting(x,y,other.id) && id != other.id)
+            instance_destroy()
+    }
+    replace_below = 0;
+}
+
 /*with (deity) if (new) {
     x-=verybignumber
     if (place_meeting(xstart,y,drawregion.deity)) instance_destroy()

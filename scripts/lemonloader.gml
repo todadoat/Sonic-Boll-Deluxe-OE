@@ -281,6 +281,12 @@ repeat (8) {
                                 if (i.data[1]="dotter") i.data[1]="mini"
                             }
                         }
+                        if lv!="2.1.6s" {
+                            if (obj == pipeblock || obj == downpipe) { //fix alignment
+                                i.x -= 1;
+                                i.xstart = i.x;
+                            }
+                        }
                         if (obj==mark) {
                             //Items
                             if (i.data[0]="undotter" || i.data[0]="mushroom") {i.obj=mushroom i.data[0]="0,0"}
