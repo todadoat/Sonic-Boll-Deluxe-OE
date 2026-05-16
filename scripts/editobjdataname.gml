@@ -196,8 +196,11 @@ switch (argument[0]) {
     }
     case door: {
         if type=7 {
-            if unreal(i,0) return "P-Door: Yes"
-            else return "P-Door: No"
+            var luizdoro;
+            luizdoro=unreal(i,0)
+            if luizdoro==1 return "Door Type: P-Door"
+            if luizdoro==2 return "Door Type: Frog Door"
+            else return "Door Type: Regular"
         }
         if (type=6) {
             if (i=="key") return "Accepts: Key"

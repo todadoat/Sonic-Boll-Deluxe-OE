@@ -603,6 +603,8 @@
 			|onswitch
 			|onblock
 			|offblock
+			|konblock
+			|koffblock
 			|beepblockon
 			|beepblockoff
 			|axewall

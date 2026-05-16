@@ -36,6 +36,7 @@ fgfxdisable=0
 framestep=0
 specialreset=0
 onblockstate=1
+kaerublockstate=1
 switched=0
 sekiro=0 //players die twice
 global.on=1

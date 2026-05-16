@@ -205,7 +205,13 @@ switch (argument[0]) {
     } break
     case door: {
         if (type=7) {
-            return string(!funnytruefalse(argument[2]))
+            //return string(!funnytruefalse(argument[2]))
+            i=show_contextmenu("Door Type:|-|Regular|P-Door|Frog Door",0)
+            if (!i) return argument[2]
+            if (i=1) return "0"
+            if (i=2) return "1"
+            if (i=3) return "2"
+            return "0"
         }
         if (type=6) {
             i=show_contextmenu("Lock Currency:|-|Key|White Token|Blue Token|Green Token",0)

@@ -326,6 +326,8 @@
 		|spr_onswitch
 		|spr_onblock
 		|spr_offblock
+		|spr_konblock
+		|spr_koffblock
 		|spr_onspike
 		|spr_offspike
 		|spr_wind

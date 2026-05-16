@@ -47,6 +47,12 @@ instance_create(x,y-40,smoke)
 activated=1
 
 other.vsp=0
+
+with (konblock) alarm[0]=1
+with (koffblock) {alarm[0]=1 owner=global.coll}
+gamemanager.kaerublockstate=!gamemanager.kaerublockstate
+
+with (door) if (is_frogdoor) {frogged=1}
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
