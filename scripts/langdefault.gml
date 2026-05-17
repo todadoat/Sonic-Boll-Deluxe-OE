@@ -141,6 +141,7 @@ addlang(m,"tip optlang","Choose user interface language.##This does not affect t
 addlang(m,"tip optdetail","Reduces background update speed to 30 fps for better performance.")
 addlang(m,"tip optmusic","You can choose an audio file to use as custom menu music.")
 addlang(m,"tip optmusic2","Custom menu music:#")
+addlang(m,"tip optaft","Allows swapping #between updated#and pre-2.1.6's#afterimage styles.")
 addlang(m,"tip optpause","Choose if the game can automatically pause when it's not the foreground window.")
 addlang(m,"tip optcamshim","Changes how much the camera extends while doing certain actions.")
 lflang()
